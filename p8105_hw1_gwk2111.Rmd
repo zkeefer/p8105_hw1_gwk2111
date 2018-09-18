@@ -26,3 +26,51 @@ hw1_p1_df = tibble(
 
 ```
 
+The mean of random_sample is `r mean(hw1_p1_df$random_sample)`.
+
+The mean of vec_logical is `r mean(hw1_p1_df$vec_logical)`.
+
+The mean of vec_char is `r mean (hw1_p1_df$vec_char)`.
+
+The mean of vec factor is `r mean (hw1_p1_df$vec_factor)`.
+
+We are only able to calculate the mean of random_sample and the logic vector.  Random_sample is a numeric variable, so we would expect to be able to calculate the mean.  The logic vector is a dichotomous variable that r recognizes as either "1" when "TRUE" and "0" when "FALSE", which is why the mean can also be calculated for this variable.  The character and factor vectors have character values, and so a mean cannot be calculated because there is no numerical value.
+
+###Converting Variables with Codechunks
+
+* Below, I use the _as.numeric_ function to the logical, character, and vector variables:
+
+```{r, results = 'hide'}
+
+p1_log_to_numeric = as.numeric(hw1_p1_df$vec_logical)
+p1_fact_to_numeric = as.numeric(hw1_p1_df$vec_factor)
+p1_char_to_numeric = as.numeric(hw1_p1_df$vec_char)
+
+```
+
+When use the _as.numeric_ function, the logical variable is converted to 0 or 1 (1 for TRUE and 0 for FALSE).  When applied to the character vector, we see a warning message that explains NA was introduced by coercion.  The factor variable is assigned a new number for each new character.  They are numbered 1 to 10.
+
+
+* Next I will convert my character variable to a factor variable and then a numeric variable 
+
+```{r}
+
+p1_char_fact_numeric = as.numeric(as.factor(hw1_p1_df$vec_char))
+
+```
+
+My variables are converted to numeric and numbered the same as the factor variable described above.
+
+
+* Finally, I will convert my factor variable to a character variable and then a numeric variable.
+```{r}
+
+p1_fact_char_numeric = as.numeric(as.character(hw1_p1_df$vec_factor))
+
+```
+
+I get the same warning message described above.  NA is introduced instead of numbers.
+
+
+##Problem 2
+
