@@ -1,0 +1,28 @@
+---
+title: "P8105_hw1_gwk2111"
+author: "Zach Keefer"
+date: "9/16/2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Problem 1
+
+Creating a data frame for question 1:
+
+```{r}
+library(tidyverse)
+
+hw1_p1_df = tibble(
+  random_sample = runif(10, 0, 5),
+  vec_logical = random_sample > 2,
+  vec_char = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+  vec_factor = factor(c(vec_char))
+  
+)
+
+```
+
