@@ -19,45 +19,46 @@ Creating a data frame for question 1:
 
 ```{r}
 problem1_df = tibble(
-  random_sample = runif(10, 0, 5),
-  vec_logical = random_sample > 2,
-  vec_char = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
-  vec_factor = factor(c(vec_char))
+  random_sample_p1 = runif(10, 0, 5),
+  vec_logical_p1 = random_sample_p1 > 2,
+  vec_char_p1 = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+  vec_factor_p1 = factor(vec_char_p1)
   
 )
 
 ```
 
-The mean of random_sample is `r mean(problem1_df$random_sample)`.
+Next, I will take the mean of each of my variables:
 
-The mean of vec_logical is `r mean(problem1_df$vec_logical)`.
-
-The mean of vec_char is `r mean (problem1_df$vec_char)`.
-
-The mean of vec factor is `r mean (problem1_df$vec_factor)`.
+```{r}
+mean(problem1_df$random_sample_p1)
+mean(problem1_df$vec_logical_p1)
+mean(problem1_df$vec_char_p1)
+mean(problem1_df$vec_factor_p1)
+```
 
 We are only able to calculate the mean of random_sample and the logic vector.  Random_sample is a numeric variable, so we would expect to be able to calculate the mean.  The logic vector is a dichotomous variable that r recognizes as either "1" when "TRUE" and "0" when "FALSE", which is why the mean can also be calculated for this variable.  The character and factor vectors have character values, and so a mean cannot be calculated because there is no numerical value.
 
 ###Converting Variables with Codechunks
 
-Below, I use the _as.numeric_ function to the logical, character, and vector variables:
+Below, I use the `as.numeric` function to the logical, character, and vector variables:
 
 ```{r, results = 'hide'}
 
-p1_log_to_numeric = as.numeric(problem1_df$vec_logical)
-p1_fact_to_numeric = as.numeric(problem1_df$vec_factor)
-p1_char_to_numeric = as.numeric(problem1_df$vec_char)
+as.numeric(problem1_df$vec_logical_p1)
+as.numeric(problem1_df$vec_factor_p1)
+as.numeric(problem1_df$vec_char_p1)
 
 ```
 
-When I use the _as.numeric_ function, the logical variable is converted to 0 or 1 (1 for TRUE and 0 for FALSE).  When _as.numeric_ is applied to the character vector, we see a warning message that explains NA was introduced by coercion.  When _as.numeric_ is applied to the factor variable, it is assigned a new number for each new character.  They are numbered 1 to 10.
+When I use the `as.numeric` function, the logical variable is converted to 0 or 1 (1 for TRUE and 0 for FALSE).  When `as.numeric` is applied to the character vector, we see a warning message that explains NA was introduced by coercion.  When `as.numeric` is applied to the factor variable, it is assigned a new number for each new character.  They are numbered 1 to 10.
 
 
-Next I will convert my character variable to a factor variable and then a numeric variable 
+Next I will convert my character variable to a factor variable and then a numeric variable:
 
 ```{r}
 
-p1_char_fact_numeric = as.numeric(as.factor(problem1_df$vec_char))
+as.numeric(as.factor(problem1_df$vec_char_p1))
 
 ```
 
@@ -67,45 +68,57 @@ My variables are converted to numeric and numbered the same as the factor variab
 Finally, I will convert my factor variable to a character variable and then a numeric variable.
 ```{r}
 
-p1_fact_char_numeric = as.numeric(as.character(problem1_df$vec_factor))
+as.numeric(as.character(problem1_df$vec_factor_p1))
 
 ```
 
-I get the same warning message described above.  NA is introduced instead of numbers.
+I get the same warning message described above.  NA is introduced instead of numbers.  We are not able to transform character vectors to numeric.  As demonstrated above, we would need to convert a character vector to a factor vector before converting it to numeric. 
 
 
 ##Problem 2
+
+###Create the Problem 2 Data Frame
+
+Creating a data frame for question 2:
 
 ```{r}
 problem2_df = tibble(
   x = rnorm(1000),
   y = rnorm(1000),
-  vec_logical_2 = x + y > 0,
-  num_vec = as.numeric(vec_logical_2),
-  fac_vec_2 = as.factor(num_vec)
+  vec_logical_p2 = x + y > 0,
+  vec_num_p2 = as.numeric(vec_logical_p2),
+  vec_factor_p2 = as.factor(vec_num_p2)
 )
 ```
 
-The dataset has 1000 observations and 5 variables.  The mean of x is `r mean (problem2_df$x)` and the median of x is `r median (problem2_df$x)`.  The proportion of cases for which the logical vector is true is `r mean (problem2_df$vec_logical_2)`.
+The dataset has `r nrow(problem2_df)` rows and `r ncol(problem2_df)` columns.  The mean of x is `r mean (problem2_df$x)` and the median of x is `r median (problem2_df$x)`.  The proportion of cases for which the logical vector is true is `r mean (problem2_df$vec_logical_p2)`.
+
+###Plotting Problem 2
+
+Plot with color points using logical vector:
 
 ```{r}
 
-ggplot(problem2_df, aes(x = x, y = y, color = problem2_df$vec_logical_2)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = problem2_df$vec_logical_p2)) + geom_point()
 
 
 ggsave("p2_Logic_scatter_plot.pdf", height = 4, width = 6)
 
 ```
 
+Plot with color points using numeric vector:
+
 ```{r}
 
-ggplot(problem2_df, aes(x = x, y = y, color = problem2_df$num_vec)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = problem2_df$vec_num_p2)) + geom_point()
 
 ```
 
+Plot with color points using factor vector:
+
 ```{r}
 
-ggplot(problem2_df, aes(x = x, y = y, color = problem2_df$fac_vec_2)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = problem2_df$vec_factor_p2)) + geom_point()
 
 ```
 
